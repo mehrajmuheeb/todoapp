@@ -1,0 +1,5 @@
+class DeleteNotificationRequest {
+
+
+  Map toJson() => {};
+}
