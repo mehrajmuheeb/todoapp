@@ -1,6 +1,7 @@
 import 'package:base_flutter/firebase_options.dart';
 import 'package:base_flutter/helpers/app_state.dart';
 import 'package:base_flutter/helpers/service_locator.dart';
+import 'package:base_flutter/ui/dashboard/dashboard_screen.dart';
 import 'package:base_flutter/ui/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,9 +17,6 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-// Ideal time to initialize
-//   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
   runApp(const BaseApp());
 }
@@ -62,7 +60,7 @@ class _BaseAppState extends State<BaseApp> {
       return const LoginScreen();
     } else {
       //Dashboard
-      return Container();
+      return const DashboardScreen();
     }
   }
 }

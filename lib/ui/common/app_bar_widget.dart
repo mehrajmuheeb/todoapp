@@ -61,7 +61,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                         weight: FontWeight.w400,
                         color: textColorPrimary,
                         size: 24,
-                        typeFace: TypeFace.normalCondensed,
+                        typeFace: TypeFace.normal,
                         textAlign: TextAlign.center,
                       )),
             )),

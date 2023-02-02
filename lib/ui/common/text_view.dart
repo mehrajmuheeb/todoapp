@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 enum TypeFace {
   normal,
   bold,
-  light,
+  medium,
   semiBold,
-  normalCondensed,
-  boldCondensed,
-  lightCondensed,
-  semiBoldCondensed,
 }
 
 class TextView extends StatelessWidget {
@@ -48,21 +44,15 @@ class TextView extends StatelessWidget {
   String getFontFamily() {
     switch (typeFace) {
       case TypeFace.normal:
-        return "Messina_Reg";
-      case TypeFace.light:
-        return "Messina_Light";
+        return "Poppins_Reg";
+      case TypeFace.medium:
+        return "Poppins_Med";
       case TypeFace.bold:
-        return "Messina_Bold";
+        return "Poppins_Bold";
       case TypeFace.semiBold:
-        return "Messina_Semi_Bold";
-      case TypeFace.normalCondensed:
-        return "Messina_Cond_Reg";
-      case TypeFace.lightCondensed:
-        return "Messina_Cond_Light";
-      case TypeFace.boldCondensed:
-        return "Messina_Cond_Bold";
+        return "Poppins_Semi_Bold";
       default:
-        return "Messina_Reg";
+        return "Poppins_Reg";
     }
   }
 }

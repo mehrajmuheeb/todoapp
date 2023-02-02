@@ -35,7 +35,7 @@ class GuestUserErrorDialog extends StatelessWidget {
                   text: heyThere,
                   size: 30,
                   textAlign: TextAlign.center,
-                  typeFace: TypeFace.boldCondensed,
+                  typeFace: TypeFace.bold,
                 ),
               ),
             ),
@@ -48,7 +48,7 @@ class GuestUserErrorDialog extends StatelessWidget {
                 text: signUpToUse,
                 size: 18,
                 color: color63,
-                typeFace: TypeFace.normalCondensed,
+                typeFace: TypeFace.normal,
               ),
             ),
             Container(

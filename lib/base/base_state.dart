@@ -65,7 +65,6 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: appBgColor,
-
         //Sets custom AppBar Widget on Dashboard only
         drawer: getPageIdentifier() == PageIdentifier.dashboard
             ? AppDrawerWidget(

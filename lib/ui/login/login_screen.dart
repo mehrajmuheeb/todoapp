@@ -1,23 +1,18 @@
 import 'package:base_flutter/base/base_state.dart';
-import 'package:base_flutter/constants/colors.dart';
-import 'package:base_flutter/constants/dimens.dart';
-import 'package:base_flutter/constants/strings.dart';
-import 'package:base_flutter/data/network/api_response.dart';
-import 'package:base_flutter/data/network/status.dart';
-import 'package:base_flutter/helpers/extensions/validator_extension.dart';
+import 'package:base_flutter/data/models/user/user.dart';
 import 'package:base_flutter/helpers/page_identifier.dart';
 import 'package:base_flutter/ui/common/app_bar_widget.dart';
-import 'package:base_flutter/ui/common/heading_widget.dart';
-import 'package:base_flutter/ui/common/input_field.dart';
 import 'package:base_flutter/ui/common/loader_button.dart';
 import 'package:base_flutter/ui/common/rounded_button.dart';
 import 'package:base_flutter/ui/common/text_view.dart';
 import 'package:base_flutter/ui/login/login_navigator.dart';
 import 'package:base_flutter/ui/login/login_view_model.dart';
-import 'package:base_flutter/ui/login/widget/sign_up_text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../dashboard/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -38,7 +33,6 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
   @override
   void initState() {
     super.initState();
-    viewModel.initData();
   }
 
   @override
@@ -113,6 +107,6 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginViewModel>
 
   @override
   void onSignInSuccess() {
-    onError("Logged In");
+    pushReplace(widget: const DashboardScreen());
   }
 }

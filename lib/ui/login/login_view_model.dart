@@ -2,52 +2,39 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:base_flutter/base/base_view_model.dart';
-import 'package:base_flutter/data/models/login/login_request.dart';
-import 'package:base_flutter/data/models/verifyCode/verify_code_response.dart';
+import 'package:base_flutter/data/models/user/user.dart';
+import 'package:base_flutter/data/models/user/user_request.dart';
 import 'package:base_flutter/data/network/api_response.dart';
 import 'package:base_flutter/ui/login/login_navigator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart';
 
 class LoginViewModel extends BaseViewModel<LoginNavigator> {
-
   bool isLoggingIn = false;
+  SignedUser? user;
 
-  ApiResponse<VerifyCodeResponse> loginResponse = ApiResponse.stopped();
-
-  Future<void> initData() async {
-
-  }
-
-  // void login() {
-  //   // _setLoginResponse(ApiResponse.loading());
-  //
-  //   FirebaseAuth.instance.authStateChanges().listen((user) {
-  //     if(user != null) {
-  //       getNavigator().onError("Firebase Logger");
-  //     }
-  //   });
-  // }
-
+  /// 1. Logs in User via Gmail
   Future<void> signInWithGoogle() async {
     _setLoggingIn(true);
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    webApi
+        .login()
+        .then((value) => onLoginSuccess(value))
+        .onError((error, stackTrace) => onLoginError(error.toString()));
+  }
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+  onLoginSuccess(SignedUser user) {
+    final signedUser = user;
+    this.user = user;
+    saveProfile(user);
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    //If successful, we check if the User if already created in FireStore
+    checkUserExists(signedUser);
+  }
 
-    // Once signed in, return the UserCredential
-    final user = await FirebaseAuth.instance.signInWithCredential(credential);
+  onLoginError(String message) {
     _setLoggingIn(false);
-    if(user.user != null) {
-      getNavigator().onError("Logged In");
-    }
+    getNavigator().onError(message);
   }
 
   void _setLoggingIn(bool isLogging) {
@@ -55,4 +42,48 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     notifyListeners();
   }
 
+  /// 2. Checks if the User is already created in FireStore.
+  void checkUserExists(SignedUser user) {
+    webApi
+        .userExists(user.email!)
+        .then((value) => onCheckSuccess(value))
+        .onError((error, stackTrace) => onCheckError(error.toString()));
+  }
+
+  // If the user exists then we save the User and navigate to Dashboard
+  onCheckSuccess(SignedUser user) {
+    _setLoggingIn(false);
+    saveProfile(user);
+    getNavigator().onSignInSuccess();
+  }
+
+  onCheckError(String message) {
+    if (user == null) {
+      _setLoggingIn(false);
+      getNavigator().onError(message);
+      return;
+    }
+
+    createUser(user!);
+  }
+
+  //Creates User if it doesn't exist in Database
+  void createUser(SignedUser user) {
+    webApi
+        .createUser(UserRequest(
+            user.id ?? "", user.name ?? "", user.email ?? "", user.image ?? ""))
+        .then((value) => onUserSuccess(value))
+        .onError((error, stackTrace) => onUserError(error.toString()));
+  }
+
+  onUserSuccess(String id) async {
+    final user = await getProfile();
+    _setLoggingIn(false);
+    getNavigator().onSignInSuccess();
+  }
+
+  onUserError(String message) {
+    _setLoggingIn(false);
+    getNavigator().onError(message);
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:base_flutter/constants/strings.dart';
-import 'package:base_flutter/data/models/verifyCode/verify_code_response.dart';
+import 'package:base_flutter/data/models/user/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 mixin AuthMixin {
@@ -13,34 +14,18 @@ mixin AuthMixin {
   static const String NOTIFICATION_STATUS = "notification_status";
   static const String UNREAD_NOTIFICATION = "unread_notification";
 
-  Future<void> saveProfile(Profile? response) async {
-    if(response == null) return;
+  Future<void> saveProfile(SignedUser user) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString(USER, jsonEncode(response));
+    prefs.setString(USER, jsonEncode(user));
   }
 
-  Future<Profile?> getProfile() async {
+  Future<SignedUser?> getProfile() async {
     var prefs = await SharedPreferences.getInstance();
     var json = prefs.getString(USER);
     if(json == null) {
       return null;
     }
-    return Profile.fromJson(jsonDecode(json));
-  }
-
-  Future<void> saveAuthToken(Token? authToken) async {
-    if(authToken == null) return;
-      var prefs = await SharedPreferences.getInstance();
-      prefs.setString(TOKEN, jsonEncode(authToken));
-  }
-
-  Future<Token?> getAuthToken() async {
-    var prefs = await SharedPreferences.getInstance();
-    var json = prefs.getString(TOKEN);
-    if(json == null || json.isEmpty) {
-      return null;
-    }
-    return Token.fromJson(jsonDecode(json));
+    return SignedUser.fromJson(jsonDecode(json));
   }
 
   Future<void> clearAuthToken() async {

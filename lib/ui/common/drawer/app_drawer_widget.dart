@@ -106,7 +106,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> with AuthMixin {
               ),
               TextView(
                 text: "Logout",
-                typeFace: TypeFace.boldCondensed,
+                typeFace: TypeFace.bold,
                 size: 17,
               ),
             ],
@@ -137,7 +137,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> with AuthMixin {
             ),
             TextView(
               text: name,
-              typeFace: TypeFace.boldCondensed,
+              typeFace: TypeFace.bold,
               size: 17,
             ),
           ],

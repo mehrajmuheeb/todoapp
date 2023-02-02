@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:142632452963:android:d9e1a7357388a4ec74c956',
     messagingSenderId: '142632452963',
     projectId: 'to-do-app-2caa5',
+    databaseURL: 'https://to-do-app-2caa5-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'to-do-app-2caa5.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:142632452963:ios:61931ba0e3f0874174c956',
     messagingSenderId: '142632452963',
     projectId: 'to-do-app-2caa5',
+    databaseURL: 'https://to-do-app-2caa5-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'to-do-app-2caa5.appspot.com',
+    androidClientId: '142632452963-dvsbagcgm92dkvg1hb3qr4uobs8v2trg.apps.googleusercontent.com',
     iosClientId: '142632452963-sbbgqf4jr6tp0n7s152jkme6gtes50kk.apps.googleusercontent.com',
     iosBundleId: 'com.nmg.baseflutter.baseFlutter',
   );

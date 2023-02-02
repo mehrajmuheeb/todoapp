@@ -1,46 +1,11 @@
 {
   "project_info": {
     "project_number": "142632452963",
+    "firebase_url": "https://to-do-app-2caa5-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "to-do-app-2caa5",
     "storage_bucket": "to-do-app-2caa5.appspot.com"
   },
   "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:142632452963:android:7cc8a475aa1081fd74c956",
-        "android_client_info": {
-          "package_name": "com.nmg.base_flutter.base_flutter"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "142632452963-s8203i11a7eehp4s88pivavpnn8jg3aj.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAbKb-RQYEJTCHgi398gSWmNxwMQHMMHTk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "142632452963-s8203i11a7eehp4s88pivavpnn8jg3aj.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "142632452963-sbbgqf4jr6tp0n7s152jkme6gtes50kk.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nmg.baseflutter.baseFlutter"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:142632452963:android:d9e1a7357388a4ec74c956",
@@ -50,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "142632452963-s8203i11a7eehp4s88pivavpnn8jg3aj.apps.googleusercontent.com",
+          "client_id": "142632452963-dvsbagcgm92dkvg1hb3qr4uobs8v2trg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.potatohead.todoapp",
+            "certificate_hash": "45c58f493e6013a0a2265ab583a6dbde0b247b17"
+          }
+        },
+        {
+          "client_id": "142632452963-ulj31vgfecqoioq5lbhl3tjc101htdsl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

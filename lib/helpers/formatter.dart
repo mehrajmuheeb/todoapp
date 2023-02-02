@@ -4,8 +4,12 @@ import 'package:intl/intl.dart';
 String formatDate(DateTime? dateSelected) {
   if(dateSelected == null) return "";
   var date = "";
-  date = DateFormat("MM/dd/yyyy").format(dateSelected);
 
+  if (dateSelected.day != DateTime.now().day) {
+    date = DateFormat("hh:mm a, dd/MM").format(dateSelected);
+  } else {
+    date = DateFormat("hh:mm a").format(dateSelected);
+  }
   return date;
 }
 

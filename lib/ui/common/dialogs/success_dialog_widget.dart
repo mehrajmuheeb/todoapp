@@ -29,20 +29,19 @@ class SuccessDialog extends StatelessWidget {
             ),
             const Align(
                 alignment: Alignment.center,
-                child:
-                    Image(image: AssetImage("assets/images/ic_success.png"))),
+                child: Icon(Icons.check, size: 50, color: Colors.black,)),
             Container(
               height: 30,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Align(
                 alignment: Alignment.center,
                 child: TextView(
                   text: title,
                   size: 30,
                   textAlign: TextAlign.center,
-                  typeFace: TypeFace.boldCondensed,
+                  typeFace: TypeFace.bold,
                 ),
               ),
             ),
@@ -57,7 +56,7 @@ class SuccessDialog extends StatelessWidget {
                 text: description ?? "",
                 size: 18,
                 color: color63,
-                typeFace: TypeFace.normalCondensed,
+                typeFace: TypeFace.normal,
               ),
             ),
             Container(

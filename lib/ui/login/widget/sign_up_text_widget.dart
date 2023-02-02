@@ -49,7 +49,7 @@ class SignUpTextWidget extends StatelessWidget {
               child: TextView(
                 text: continueGuest,
                 color: textColorPrimary,
-                typeFace: TypeFace.normalCondensed,
+                typeFace: TypeFace.normal,
                 size: 18,
               ),
             ),

@@ -1,4 +1,3 @@
-import 'package:base_flutter/data/models/profile/update_profile_request.dart';
 
 abstract class BaseApiService {
 
