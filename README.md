@@ -1,13 +1,8 @@
-# Flutter Base
+# Todo App
 
-A new Flutter project.
+Demo project with Social login and Firestore DB integration.
 
-## Getting Started
-
-This project is a starting point for a NMG's flutter projects. It follows the MVVM architecture
-pattern and uses Provider package from State Management.
-
-# Author
+## Author
 Muheeb Mehraj
-# Created On
-03-12-2022
+## Created On
+02-02-2023
