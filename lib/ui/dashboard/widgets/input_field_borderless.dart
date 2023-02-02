@@ -89,26 +89,49 @@ class _InputFieldBorderlessState extends State<InputFieldBorderless> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         //key: key,
+        obscuringCharacter: "*",
         controller: controller,
-        maxLines: null,
-        keyboardType: TextInputType.multiline,
+        enabled: isEnabled,
+        obscureText: isPassword,
+        maxLength: widget.maxLength,
+        keyboardType: isNumber ? TextInputType.number : null,
+        inputFormatters: [
+          isNumber
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.singleLineFormatter
+        ],
+        maxLengthEnforcement: MaxLengthEnforcement.enforced,
         style: TextStyle(
             fontFamily: "Poppins_Regular",
             fontWeight: FontWeight.w400,
             color: Colors.black,
-
             fontSize: size),
         validator: validator,
         onChanged: (value) => widget.onTextChange(value),
         decoration: InputDecoration(
+            prefixIcon: isPhone ? const NumberFieldPrefix() : prefixIcon,
+            errorMaxLines: 4,
+            suffixIcon: (widget.isPassword)
+                ? IconButton(
+              icon: isPassword
+                  ? const Image(image: AssetImage("assets/images/ic_password_hide.png"))
+                  : const Icon(Icons.remove_red_eye_rounded, color: colorCE,),
+              onPressed: () {
+                setState(() {
+                  isPassword = !isPassword;
+                });
+              },
+            )
+                : leadingIcon,
+            counterText: "",
+            floatingLabelBehavior: animated
+                ? FloatingLabelBehavior.auto
+                : FloatingLabelBehavior.never,
             label: Text(widget.labelText, style: const TextStyle(
-                fontFamily: "Poppins_Reg",
+                fontFamily: "Messina_Reg",
                 fontSize: 18,
                 color: color63
             ),),
-            errorMaxLines: 4,
-            counterText: "",
-            floatingLabelBehavior: FloatingLabelBehavior.never,
             filled: filled,
             fillColor: fillColor,
             focusedErrorBorder: InputBorder.none,

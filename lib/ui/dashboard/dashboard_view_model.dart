@@ -5,35 +5,26 @@ import 'package:base_flutter/data/models/notes/notes.dart';
 import 'package:base_flutter/data/models/notes/notes_response.dart';
 import 'package:base_flutter/data/models/user/user.dart';
 import 'package:base_flutter/firebase/firebase_instances.dart';
+import 'package:base_flutter/helpers/formatter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 import 'dashboard_navigator.dart';
 
 class DashboardViewModel extends BaseViewModel<DashboardNavigator> {
   String imageUrl = "";
   SignedUser? user;
+  String? selectedDate;
   List<Notes> notes = [];
-
-  Future<void> addNotes(String message) async {
-    webApi
-        .createNotes(Note(message))
-        .then((value) => onAddNoteSuccess(value))
-        .onError((error, stackTrace) => onAddNoteError(error.toString()));
-  }
+  List<Notes> fetchedNotes = [];
 
   Future<void> setUserData() async {
     final user = await getProfile();
     this.user = user;
+    selectedDate = getDate(DateTime.now());
     notifyListeners();
   }
 
-  onAddNoteSuccess(bool success) {
-    getNavigator().onAddNoteSuccess();
-  }
-
-  onAddNoteError(String message) {
-    getNavigator().onError(message);
-  }
 
   void getNotes() {
     webApi
@@ -43,10 +34,9 @@ class DashboardViewModel extends BaseViewModel<DashboardNavigator> {
   }
 
   onFetchNotesSuccess(List<Notes> notes) {
-    this.notes.clear();
-    this.notes.addAll(notes);
-    getNavigator().updateState();
-    notifyListeners();
+    fetchedNotes.clear();
+    fetchedNotes = notes;
+    filterNotes();
   }
 
   onFetchNotesError(String message) {
@@ -72,6 +62,24 @@ class DashboardViewModel extends BaseViewModel<DashboardNavigator> {
   }
 
   onNoteDeleteError(String message) {
-    print(message);    getNavigator().onError(message);
+    print(message);
+    getNavigator().onError(message);
+  }
+
+  void filterNotes() {
+    final filteredNotes = <Notes>[];
+    notes.clear();
+    notifyListeners();
+    if (kDebugMode) {
+      print("Date: ${selectedDate.toString()}");
+    }
+    for (var note in fetchedNotes) {
+      print("Notes: ${note.toJson()}");
+      if(selectedDate == note.date) {
+        filteredNotes.add(note);
+      }
+    }
+    notes = filteredNotes;
+    getNavigator().updateState();
   }
 }

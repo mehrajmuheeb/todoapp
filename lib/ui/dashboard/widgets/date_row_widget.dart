@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class DateRowWidget extends StatefulWidget {
   final DatePickerController? datePickerController;
-
-  const DateRowWidget({this.datePickerController, Key? key}) : super(key: key);
+  final Function(DateTime) onDateSelected;
+  const DateRowWidget({this.datePickerController, required this.onDateSelected, Key? key}) : super(key: key);
 
   @override
   State<DateRowWidget> createState() => _DateRowWidgetState();
@@ -29,6 +29,7 @@ class _DateRowWidgetState extends State<DateRowWidget> {
             monthTextStyle: const TextStyle(color: Colors.white),
             width: constraints.maxWidth / 7,
             onDateChange: (date) {
+              widget.onDateSelected(date);
               setState(() {
                 datePickerController?.animateToDate(date,
                     duration: const Duration(milliseconds: 500),

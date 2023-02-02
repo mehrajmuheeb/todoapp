@@ -2,6 +2,7 @@ import 'package:base_flutter/base/base_state.dart';
 import 'package:base_flutter/data/models/notes/notes.dart';
 import 'package:base_flutter/data/models/notes/notes_response.dart';
 import 'package:base_flutter/data/models/user/user.dart';
+import 'package:base_flutter/helpers/formatter.dart';
 import 'package:base_flutter/helpers/page_identifier.dart';
 import 'package:base_flutter/ui/common/app_bar_widget.dart';
 import 'package:base_flutter/ui/common/dialogs/create_note_dialog.dart';
@@ -29,8 +30,8 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState
     extends BaseState<DashboardScreen, DashboardViewModel>
     implements DashboardNavigator {
-
   final datePickerController = DatePickerController();
+
   @override
   void initState() {
     viewModel.setUserData();
@@ -51,8 +52,9 @@ class _DashboardScreenState
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/app_bg.jpg"), fit: BoxFit.fitHeight)
-            ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/app_bg.jpg"),
+                    fit: BoxFit.fitHeight)),
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Stack(
               children: [
@@ -63,20 +65,23 @@ class _DashboardScreenState
                   const SizedBox(
                     height: 20,
                   ),
-                  DateRowWidget(datePickerController: datePickerController,),
+                  DateRowWidget(
+                    datePickerController: datePickerController,
+                    onDateSelected: onDateSelected,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
                   Expanded(
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: viewModel.notes.length,
+                        shrinkWrap: true,
+                        itemCount: viewModel.notes.length,
                         itemBuilder: (context, position) => NotesItem(
-                          viewModel.notes[position],
-                          index: position,
-                          viewModel: viewModel,
-                          onClick: onListItemClick,
-                        )),
+                              viewModel.notes[position],
+                              index: position,
+                              viewModel: viewModel,
+                              onClick: onListItemClick,
+                            )),
                   )
                 ]),
                 Align(
@@ -100,14 +105,11 @@ class _DashboardScreenState
     });
   }
 
-  void showCreateNotesDialog({Notes? note}) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (builder) {
-          return CreateNoteDialog(note: note, onSubmit: onSubmitNoteClick,);
-        });
+  void onDateSelected(DateTime selectedDate) {
+    viewModel.selectedDate = getDate(selectedDate);
+    viewModel.filterNotes();
   }
+
   @override
   getNavigator() => this;
 
@@ -117,7 +119,6 @@ class _DashboardScreenState
   @override
   void loadPageData({value}) {
     viewModel.getNotes();
-
   }
 
   @override
@@ -134,13 +135,6 @@ class _DashboardScreenState
             }));
   }
 
-  onSubmitNoteClick(String note) {
-    if(note.isEmpty) return;
-
-    viewModel.addNotes(note);
-    viewModel.addNoteToOfflineList(note);
-  }
-
   onListItemClick(Notes note) {
     push(widget: NotesScreen(note: note));
   }
@@ -148,5 +142,8 @@ class _DashboardScreenState
   @override
   void updateState() {
     datePickerController.animateToDate(DateTime.now());
+    setState(() {
+
+    });
   }
 }

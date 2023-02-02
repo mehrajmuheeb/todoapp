@@ -23,13 +23,14 @@ class NotesResponse {
 
 class Notes {
   String? message;
-
+  String? date;
   String? timestamp;
 
   Notes({this.message, this.timestamp});
 
   Notes.fromJson(Map<String, dynamic> json) {
     message = json['message'];
+    date = json['date'];
     timestamp = json['timestamp'];
   }
 
@@ -37,6 +38,7 @@ class Notes {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = message;
     data['timestamp'] = timestamp;
+    data['date'] = date;
     return data;
   }
 }

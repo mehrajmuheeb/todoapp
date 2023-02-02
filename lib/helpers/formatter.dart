@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String formatDate(DateTime? dateSelected) {
-  if(dateSelected == null) return "";
+  if (dateSelected == null) return "";
   var date = "";
 
   if (dateSelected.day != DateTime.now().day) {
@@ -13,8 +13,16 @@ String formatDate(DateTime? dateSelected) {
   return date;
 }
 
+String getDate(DateTime dateTime, {String format = "dd/MM/yyyy"}) {
+  var date = "";
+
+  date = DateFormat(format).format(dateTime);
+
+  return date;
+}
+
 String formatTime(BuildContext context, TimeOfDay? timeSelected) {
-  if(timeSelected == null) return "";
+  if (timeSelected == null) return "";
   var time = "";
   var localization = MaterialLocalizations.of(context);
   time = localization.formatTimeOfDay(timeSelected);

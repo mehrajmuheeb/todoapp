@@ -8,7 +8,7 @@ Future<DateTime?> displayDatePicker(BuildContext context) async {
           Theme.of(context).copyWith(
             colorScheme:
             const ColorScheme.light(
-              primary: Colors.red,
+              primary: Colors.black45,
               // header background color
               onPrimary: Colors.black,
               // header text color
@@ -18,7 +18,7 @@ Future<DateTime?> displayDatePicker(BuildContext context) async {
             textButtonTheme:
             TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: Colors.red, // button text color
+                foregroundColor: Colors.black, // button text color
               ),
             ),
           ),
