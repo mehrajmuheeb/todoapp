@@ -68,8 +68,6 @@ class DashboardViewModel extends BaseViewModel<DashboardNavigator> {
 
   void filterNotes() {
     final filteredNotes = <Notes>[];
-    notes.clear();
-    notifyListeners();
     if (kDebugMode) {
       print("Date: ${selectedDate.toString()}");
     }
@@ -80,6 +78,6 @@ class DashboardViewModel extends BaseViewModel<DashboardNavigator> {
       }
     }
     notes = filteredNotes;
-    getNavigator().updateState();
+    notifyListeners();
   }
 }
